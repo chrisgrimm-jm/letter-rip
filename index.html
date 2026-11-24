@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Letter Rip — Host</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sofia+Sans+Extra+Condensed:wght@700;800&family=Sofia+Sans+Semi+Condensed:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-role="host">
+<div id="stage">
+  <header><div class="logo" id="logo"></div></header>
+  <div id="conn">OFFLINE</div>
+  <div class="menu"><button id="btnDisplay">Open Display</button><button id="btnSetup">Setup</button><button id="btnNew">New Game</button></div>
+  <div id="modeTag"></div>
+  <div id="value"><small id="valueLbl">SPIN VALUE</small><span id="valueTxt">—</span></div>
+
+  <div class="ctrl left">
+    <button class="hot" id="btnSpin">Spin</button>
+    <button id="btnNext">Next Player</button>
+    <button class="cool" id="btnAction" hidden></button>
+    <div id="status"></div>
+  </div>
+  <div class="ctrl right">
+    <button class="cool" id="btnLoad">Normal Round</button>
+    <button id="btnToss">Toss-Up</button>
+    <button id="btnSpeed">Speed-Up</button>
+    <button id="btnBonus">Bonus Round</button>
+    <div class="sep"></div>
+    <button class="hot" id="btnSolve">Solved!</button>
+    <button id="btnReveal">Reveal All</button>
+    <div id="status2" style="font-family:var(--label);font-weight:700;font-size:24px;color:#9a96b0;text-align:center"></div>
+  </div>
+
+  <div id="board"></div>
+  <div id="category"></div>
+  <div id="letters"></div>
+  <div id="players"></div>
+
+  <div class="overlay" id="wheelOv">
+    <button class="btn alt" id="wheelBack">← Board</button>
+    <div id="wheelWrap">
+      <canvas id="wheel" width="1720" height="1720"></canvas>
+      <div id="pointer"></div>
+      <div id="hub"></div>
+    </div>
+    <div id="landed"><div class="lbl" id="landedWho"></div><div class="big" id="landedVal"></div></div>
+  </div>
+
+  <div class="overlay" id="setup"><div class="card">
+    <h2>Game Setup</h2>
+    <div class="row">Game title <input id="title" style="width:520px"></div>
+    <h3>Display</h3>
+    <p>Room code <input id="topic" style="width:200px"> — open this link on the projector/TV, or paste it into OBS as a Browser Source (1920×1080):<br><a id="displayLink" target="_blank"></a></p>
+    <label class="row"><input type="checkbox" id="hostSound" style="width:auto"> Play sounds on this host page too (the display always plays them)</label>
+    <h3>Puzzles</h3>
+    <p>One per line: <b>Category | PUZZLE TEXT</b>. Up to 4 rows of 14 letters. Puzzles play in order, whatever round you load. Saved in this browser automatically.</p>
+    <textarea id="puzText" spellcheck="false"></textarea>
+    <div class="err" id="puzErr"></div>
+    <h3>Players</h3>
+    <div class="row" id="nameRow"></div>
+    <h3>Rules</h3>
+    <div class="grid2">
+      <label>Players <select id="numPlayers"><option>2</option><option>3</option><option>4</option></select></label>
+      <label>Vowel price $<input id="vowelPrice" type="number" min="0" step="50"></label>
+      <label>Toss-up prize $<input id="tossPrize" type="number" min="0" step="100"></label>
+      <label>Toss-up speed (sec/letter) <input id="tossSpeed" type="number" min="0.3" step="0.1" style="width:100px"></label>
+      <label>Bonus prize $<input id="bonusPrize" type="number" min="0" step="1000"></label>
+      <label>Bonus clock (sec) <input id="bonusClock" type="number" min="3" step="1" style="width:100px"></label>
+      <label>Bonus free letters <input id="bonusStart" style="width:160px"></label>
+      <label>Bonus picks: consonants <input id="bonusCons" type="number" min="0" max="10" style="width:80px"></label>
+      <label>vowels <input id="bonusVowels" type="number" min="0" max="5" style="width:80px"></label>
+    </div>
+    <p style="margin-top:14px">Wheel wedges (comma separated, BUST = lose round money, PASS = lose turn):</p>
+    <input id="wedges" style="width:100%">
+    <div class="row" style="margin-top:26px"><button class="btn" id="setupSave">Save &amp; Close</button><button class="btn alt" id="setupCancel">Cancel</button></div>
+  </div></div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

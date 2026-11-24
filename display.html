@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Letter Rip</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sofia+Sans+Extra+Condensed:wght@700;800&family=Sofia+Sans+Semi+Condensed:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>#letters button,.p{cursor:default}</style>
+</head>
+<body data-role="display">
+<div id="stage">
+  <header><div class="logo" id="logo"></div></header>
+  <div id="modeTag"></div>
+  <div id="value"><small id="valueLbl">SPIN VALUE</small><span id="valueTxt">—</span></div>
+  <div id="board"></div>
+  <div id="category"></div>
+  <div id="letters"></div>
+  <div id="players"></div>
+  <div class="overlay" id="wheelOv">
+    <div id="wheelWrap">
+      <canvas id="wheel" width="1720" height="1720"></canvas>
+      <div id="pointer"></div>
+      <div id="hub"></div>
+    </div>
+    <div id="landed"><div class="lbl" id="landedWho"></div><div class="big" id="landedVal"></div></div>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
