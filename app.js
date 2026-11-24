@@ -4,7 +4,8 @@ const $ = id => document.getElementById(id);
 const HOST = document.body.dataset.role === 'host';
 const COLS = 14, ROWS = 4, VOWELS = 'AEIOU';
 const PCOLORS = ['#E40000','#00B7FF','#00B13C','#4329E3'];
-const WEDGE_COLORS = ['#E40000','#00B7FF','#FCFF7A','#00B13C','#4329E3','#ff7a1a','#ff4fa3','#14d9c4'];
+const WEDGE_COLORS = ['#c8102e','#ffb72b','#0c2340','#00B7FF','#1d6b3a','#e35205','#efe6cf','#5b2c83'];
+const LIGHT_WEDGES = ['#ffb72b','#00B7FF','#efe6cf','#ffffff'];
 const MODE_NAMES = {normal:'', toss:'Toss-Up', speed:'Speed-Up', bonus:'Bonus Round'};
 const FIREBASE_CONFIG = { apiKey:'AIzaSyBG2PS2muH4i27HefuLeBnZWW-TZ5dkMCw', databaseURL:'https://pinpoint-abf21-default-rtdb.firebaseio.com', projectId:'pinpoint-abf21' };
 const DEFAULTS = {
@@ -180,12 +181,18 @@ function drawWheel(){
     wctx.beginPath(); wctx.moveTo(cx,cx); wctx.arc(cx,cx,R,a0,a1); wctx.closePath();
     wctx.fillStyle = fill; wctx.fill(); wctx.lineWidth = 6; wctx.strokeStyle = '#1A1823'; wctx.stroke();
     wctx.save(); wctx.translate(cx,cx); wctx.rotate(a0 + step/2);   // text reads from rim toward center
-    const dark = fill==='#FCFF7A' || fill==='#ffffff' || fill==='#14d9c4' || fill==='#00B7FF';
+    const dark = LIGHT_WEDGES.includes(fill);
     wctx.fillStyle = w==='BUST' ? '#E40000' : dark ? '#1A1823' : '#ffffff';
-    wctx.font = `italic ${Math.min(130, 2400/n)}px "Bebas Neue", Impact, sans-serif`;
+    wctx.font = `${Math.min(130, 2400/n)}px "Bebas Neue", Impact, sans-serif`;
     wctx.textAlign = 'right'; wctx.textBaseline = 'middle';
     wctx.fillText(/^\d+$/.test(w) ? '$' + w : w, R - 40, 6);
     wctx.restore();
+  });
+  // brass pegs on every wedge line
+  wedges.forEach((_,i)=>{
+    const a = -Math.PI/2 + i*step, x = cx + Math.cos(a)*(R-22), y = cx + Math.sin(a)*(R-22);
+    const gr = wctx.createRadialGradient(x-4,y-4,1,x,y,13); gr.addColorStop(0,'#fff6d8'); gr.addColorStop(1,'#9a7a2a');
+    wctx.beginPath(); wctx.arc(x,y,13,0,2*Math.PI); wctx.fillStyle = gr; wctx.fill();
   });
 }
 function drawWheelState(){
